@@ -23,8 +23,8 @@ public class User {
     @Id//pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)//프로젝트에 연결된 DB의 넘버링 전략을 따라감(ex 오라클이면 sequence)
     private int id;//시퀀스
-    
-    @Column(nullable = false, length = 30)
+                                            //중복제거
+    @Column(nullable = false, length = 30, unique = true)
     private String username;//아이디
     
     @Column(nullable = false, length = 100)

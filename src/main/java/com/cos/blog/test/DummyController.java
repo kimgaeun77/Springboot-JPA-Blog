@@ -45,7 +45,7 @@ public class DummyController {
         User user = userRepository.findById(id).orElseThrow(()-> {
             return new IllegalArgumentException("수정에 실패하였습니다.");
         });
-        user.setEmail(requestUser.getEmail());
+        user.setEmail(requestUser.getEmail());//영속성 컨텍스트에서 받아온 객체를 update시키면 영속성 컨텍스트에 들어있는 객체도 같이 update된다!
         user.setPassword(requestUser.getPassword());
 
         //requestUser.setId(id);//PathVariable로 받은 데이터를 RequestUser객체에 넣어줌, id값을 넣어주면 시퀀스 작동x 넣어준 id값이 있다면(DB에)update문으로 바꿔줌!
