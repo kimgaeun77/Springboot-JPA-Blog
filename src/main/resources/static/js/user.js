@@ -3,8 +3,8 @@ let index = {
         $("#btn-save").on("click", () => { // ()=>{}을 사용하는 이유는 코드를 줄이려고 하는게 아니라 this를 바인딩 하기 위해서!!
             this.save();
         });
-        $("#btn-login").on("click", () => {
-            this.login();
+        $("#btn-update").on("click", () => {
+            this.update();
         });
     },
 
@@ -19,7 +19,7 @@ let index = {
 
         $.ajax({
             type: "post",
-            url: "/api/user",
+            url: "/auth/joinProc",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",//body데이터가 어떤 타입인지(MIME)
             dataType: "json"//<- 이렇게 응답받는 데이터 타입을 명시하지 않아도 서버에서 통신 성공시에 보내는
@@ -33,26 +33,31 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
-    login: function () {
-        //alert("user의 save함수 호출 됨");
+
+    update: function () {
+
         let data = {
+
+            id : $("#id").val(),
             username: $("#username").val(),
-            password: $("#password").val()
+            password: $("#password").val(),
+            email: $("#email").val()
         };
         //console.log(data);
 
         $.ajax({
-            type: "post",
-            url: "/api/user/login",
+            type: "put",
+            url: "/user",
             data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json; charset=utf-8",//body데이터가 어떤 타입인지(MIME)
             dataType: "json"
         }).done(function (resp) {
-            alert("로그인이 완료되었습니다.");
+            alert("회원수정이 완료되었습니다.");
             location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     }
+
 }
 index.init();

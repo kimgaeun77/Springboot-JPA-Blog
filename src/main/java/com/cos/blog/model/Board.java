@@ -28,7 +28,6 @@ public class Board {
     @Lob //대용량 데이터
     private String content;
 
-    @ColumnDefault("0")
     private int count;//조회수
 
     @ManyToOne(fetch = FetchType.EAGER)// Many=Board, One=User 한명의 유저는 여러개의 게시글을 작성할 수 있다.
