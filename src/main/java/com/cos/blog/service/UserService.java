@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,15 @@ public class UserService {
 
     @Autowired//비밀번호를 암호화(해시) 해줌!
     private BCryptPasswordEncoder encoder;
+
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+
+        User user = userRepository.findByUsername(username).orElseGet(()->{
+            return new User();
+        });
+        return user;
+    }
 
     @Transactional
     public void 회원가입(User user) {
@@ -41,11 +51,19 @@ public class UserService {
                 .orElseThrow(() -> {
                     return new IllegalArgumentException("회원 찾기 실패");
                 });
-        //비밀번호 해시(비밀번호를 암호화해서 넣어줘야함)
-        String rowPassword = user.getPassword();
-        String encPassword = encoder.encode(rowPassword);
-        persistance.setPassword(encPassword);
-        persistance.setEmail(user.getEmail());
+        
+        //Validate 체크
+        if(persistance.getOauth() == null || persistance.getOauth().equals("")){//카카오 로그인일경우 패스워드 수정못함
+            //비밀번호 해시(비밀번호를 암호화해서 넣어줘야함)
+            String rowPassword = user.getPassword();
+            String encPassword = encoder.encode(rowPassword);
+            persistance.setPassword(encPassword);
+            persistance.setEmail(user.getEmail());
+        }
+
+
 
     }
 }
+
+
