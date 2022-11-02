@@ -56,7 +56,7 @@ public class UserController {
 
         RestTemplate rt = new RestTemplate();
 
-        //HttppHeader 오브젝트 생성
+        //HttpHeader 오브젝트 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
@@ -97,7 +97,7 @@ public class UserController {
         // process2 발급 받은 토큰을 통해 회원 정보 조회
         RestTemplate rt2 = new RestTemplate();
 
-        //HttppHeader 오브젝트 생성
+        //HttpHeader 오브젝트 생성
         HttpHeaders header2 = new HttpHeaders();
         header2.add("Authorization", "Bearer " + oauthToken.getAccess_token());
         header2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");

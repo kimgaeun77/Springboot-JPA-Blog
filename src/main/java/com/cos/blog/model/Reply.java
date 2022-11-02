@@ -1,9 +1,6 @@
 package com.cos.blog.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,7 +9,8 @@ import java.sql.Timestamp;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 public class Reply {
     @Id
@@ -32,4 +30,11 @@ public class Reply {
 
     @CreationTimestamp
     private Timestamp createDate;
+
+
+    @Override
+    public String toString() {//오브젝트를 출력하면 자동으로 toString 함수가 실행된다.
+        return "Reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
+                + createDate + "]";
+    }
 }

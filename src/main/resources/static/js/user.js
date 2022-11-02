@@ -26,9 +26,13 @@ let index = {
             //    데이터 MIME타입을 가지고 jQuery가 알아서 추론해서
             //                  서버에서 보내는 데이터가 json이라면 js object로 변환해준다.
         }).done(function (resp) {
-            alert("회원가입이 완료되었습니다.");
-            //console.log(resp);
-            location.href = "/";
+            if(resp.status === 500){
+                alert('회원가입에 실패하였습니다.')
+            } else{
+                alert("회원가입이 완료되었습니다.");
+                //console.log(resp);
+                location.href = "/";
+            }
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

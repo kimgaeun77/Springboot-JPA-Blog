@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice//모든 전역에서 excetion이 발생하면 이 클래스에서 처리해줌 + return 타입이 객체로 가능!(RequestBody어노테이션이 있음)
+@RestControllerAdvice//모든 전역에서 exception이 발생하면 이 클래스에서 처리해줌 + return 타입이 객체로 가능!(RequestBody어노테이션이 있음)
 //@RestController
 public class GlobalExcetionHandler {
 
